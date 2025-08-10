@@ -7,17 +7,16 @@ const cors = require('cors');
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
-const adminRoutes = require('./routes/adminRoutes'); // <-- NEW
-const transportationRoutes = require('./routes/transportationRoutes'); // <-- NEW
+const adminTransportRoutes = require('./routes/adminRoutes');
+const transportationRoutes = require('./routes/transportationRoutes');
+const productRoutes = require('./routes/productRoutes'); // <-- NEW
+const adminConstructionRoutes = require('./routes/adminConstructionRoutes'); // <-- NEW
 
 const app = express();
 const PORT = process.env.PORT || 5050;
 
 // Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true
-}));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -31,8 +30,12 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/admin/transport', adminRoutes); // <-- NEW
-app.use('/api/transport', transportationRoutes); // <-- NEW
+// Transportation
+app.use('/api/admin/transport', adminTransportRoutes);
+app.use('/api/transport', transportationRoutes);
+// Construction (e-commerce)
+app.use('/api/products', productRoutes); // <-- NEW
+app.use('/api/admin/construction', adminConstructionRoutes); // <-- NEW
 
 // Test Route
 app.get('/', (req, res) => {
