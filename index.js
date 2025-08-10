@@ -9,8 +9,10 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const adminTransportRoutes = require('./routes/adminRoutes');
 const transportationRoutes = require('./routes/transportationRoutes');
-const productRoutes = require('./routes/productRoutes'); // <-- NEW
-const adminConstructionRoutes = require('./routes/adminConstructionRoutes'); // <-- NEW
+const productRoutes = require('./routes/productRoutes');
+const adminConstructionRoutes = require('./routes/adminConstructionRoutes');
+const garageRoutes = require('./routes/garageRoutes'); // <-- NEW
+const adminGarageRoutes = require('./routes/adminGarageRoutes'); // <-- NEW
 
 const app = express();
 const PORT = process.env.PORT || 5050;
@@ -33,9 +35,13 @@ app.use('/api/auth', authRoutes);
 // Transportation
 app.use('/api/admin/transport', adminTransportRoutes);
 app.use('/api/transport', transportationRoutes);
-// Construction (e-commerce)
-app.use('/api/products', productRoutes); // <-- NEW
-app.use('/api/admin/construction', adminConstructionRoutes); // <-- NEW
+// Construction
+app.use('/api/products', productRoutes);
+app.use('/api/admin/construction', adminConstructionRoutes);
+// Garage
+app.use('/api/garage', garageRoutes); // <-- NEW
+app.use('/api/admin/garage', adminGarageRoutes); // <-- NEW
+
 
 // Test Route
 app.get('/', (req, res) => {
